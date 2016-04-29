@@ -2,7 +2,7 @@
 Sorts already downloaded images according to the order they appear on a web page.
 
 # Installation
-cabal install
+    cabal install
 
 # Run
     sort-dli $URL [$DIR]|sh
