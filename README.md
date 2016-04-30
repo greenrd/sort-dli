@@ -31,7 +31,8 @@ Then, if we like it, we execute it:
 
     sh s.sh
     
-`s.sh` also serves as a record of what happened, should you realise that something went wrong and need to revert what happened.
+`s.sh` also serves as a record of what happened, should you realise that something went wrong and need to revert what happened
+(see `sort-dli-reverse` below).
 
 ## Windows, without a Unix shell
 _This is untested._
@@ -41,3 +42,11 @@ _This is untested._
 Edit `s.bat` and search and replace all instances of "mv", changing them to "move"; also, search and replace all instances of
 the `'` character, changing it to the `"` character. Then run it. I am not going to make this easier because 
 you can just install Cygwin (or indeed Linux).
+
+# `sort-dli-reverse`
+
+To revert the effects of an `s.sh` script, simply run
+
+    sort-dli-reverse <s.sh|sh
+
+(This facility is not provided for Windows without Unix shells installed.)

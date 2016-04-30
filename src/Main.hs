@@ -12,12 +12,13 @@ import           Data.Conduit.List        (mapM, mapM_, mapMaybe, sourceList)
 import qualified Data.Conduit.List        as DCL
 import           Data.List                (find)
 import           Data.Text                (Text, concat, pack, toLower, unpack)
+import           Data.Text.IO             (putStrLn)
 import           Data.XML.Types           (Content (..), Event (..), Name,
                                            nameLocalName)
 import           Network.HTTP.Conduit     (parseUrl)
 import           Network.HTTP.Simple      (httpSink)
 import           Network.URI              (parseURIReference, pathSegments)
-import           Prelude                  hiding (concat)
+import           Prelude                  hiding (concat, putStrLn)
 import           System.Directory         (doesFileExist)
 import           System.Environment       (getArgs)
 import           System.FilePath          (takeExtension)
@@ -42,8 +43,7 @@ extractImages = mapMaybe extract
           guard $ htmlNameEq "img" name
           imgSrcAttr <- find (htmlNameEq "src" . fst) atts
           let imgSrc = concat . map contentToText . snd $ imgSrcAttr
-          uri <- parseURIReference $ unpack imgSrc
-          return . pack . last $ pathSegments uri
+          pack . last . pathSegments <$> parseURIReference (unpack imgSrc)
 
 destFilenames :: [Text]
 destFilenames = do
@@ -59,7 +59,7 @@ destFilenamesSource = sourceList destFilenames
 
 processConduit :: FilePath -> Sink Event IO ()
 processConduit dir =
-  extractImages =$= DCL.map fullImgFilename =$= filterM exists =$= mergeSource destFilenamesSource =$= DCL.map (uncurry genCmd) =$= DCL.mapM_ (putStrLn . unpack)
+  extractImages =$= DCL.map fullImgFilename =$= filterM exists =$= mergeSource destFilenamesSource =$= DCL.map (uncurry genCmd) =$= DCL.mapM_ putStrLn
   where exists :: Text -> IO Bool
         exists = doesFileExist . unpack
         genCmd :: Text -> Text -> Text
@@ -79,7 +79,7 @@ processConduit dir =
 
 sortDli :: String -> FilePath -> IO ()
 sortDli urlStr dir = do
-  putStrLn $ "mkdir " ++ outputDir
+  putStrLn . pack $ "mkdir " ++ outputDir
   url <- parseUrl urlStr
   httpSink url $ \_ -> eventConduit =$= processConduit dir
 
