@@ -16,8 +16,8 @@ you'll want to either move the contents of `sorted` into the right place, or `cd
 otherwise _at least some of your images will be overwritten!!_ This is probably a good time to point you to the lack of
 warranty in `LICENSE`.
 
-## Unix shell
-This way can be used anywhere you have a Unix shell - i.e. Mac OS X, Linux and even Cygwin.
+## POSIX shell
+This way can be used anywhere you have a POSIX shell - i.e. Mac OS X, Linux and even Cygwin.
 
 ### "I know what I'm doing, just do it"
     sort-dli $URL [$DIR]|sh
@@ -34,7 +34,7 @@ Then, if we like it, we execute it:
 `s.sh` also serves as a record of what happened, should you realise that something went wrong and need to revert what happened
 (see `sort-dli-reverse` below).
 
-## Windows, without a Unix shell
+## Windows, without a POSIX shell
 _This is untested._
 
     sort-dli $URL [$DIR] >s.bat
@@ -49,4 +49,4 @@ To revert the effects of an `s.sh` script, simply run
 
     sort-dli-reverse <s.sh|sh
 
-(This facility is not provided for Windows without Unix shells installed.)
+(This facility is not provided for Windows without POSIX shells installed.)
