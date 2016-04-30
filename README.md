@@ -29,9 +29,9 @@ First, we view and record what is going to happen:
 
 Then, if we like it, we execute it:
 
-    `sh s.sh`
+    sh s.sh
     
-s.sh also serves as a record of what happened, should you realise that something went wrong and need to revert what happened.
+`s.sh` also serves as a record of what happened, should you realise that something went wrong and need to revert what happened.
 
 ## Windows, without a Unix shell
 _This is untested._
