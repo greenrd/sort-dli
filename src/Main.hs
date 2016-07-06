@@ -1,14 +1,11 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Main where
 
-import           Control.Applicative      ((<$>))
 import           Control.Monad            (guard)
-import           Control.Monad.IO.Class   (MonadIO (..))
 import           Data.Conduit             (Conduit, Sink, Source, mergeSource,
                                            (=$=))
 import           Data.Conduit.Combinators (filterM)
-import           Data.Conduit.Internal    (zipConduitApp)
-import           Data.Conduit.List        (mapM, mapM_, mapMaybe, sourceList)
+import           Data.Conduit.List        (mapMaybe, sourceList)
 import qualified Data.Conduit.List        as DCL
 import           Data.List                (find)
 import           Data.Text                (Text, concat, pack, toLower, unpack)
@@ -65,7 +62,7 @@ processConduit dir =
         genCmd :: Text -> Text -> Text
         genCmd destFilename full = concat [ "mv '",
                                             full,
-                                           "' '",
+                                            "' '",
                                             pack outputDir,
                                             "/",
                                             destFilename,
