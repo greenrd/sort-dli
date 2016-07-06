@@ -20,9 +20,11 @@ type Line = [Text]
 
 reverseMkdir :: Line -> Line
 reverseMkdir ["mkdir", x] = ["rmdir", x]
+reverseMkdir _ = error "Expected: mkdir"
 
 reverseMv :: Line -> Line
 reverseMv ["mv", src, dest] = ["mv", dest, src]
+reverseMv _ = error "Expected: mv"
 
 lines :: Monad m => Conduit Text m Line
 lines = linesUnbounded =$= DCC.map words

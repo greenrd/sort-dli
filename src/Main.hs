@@ -86,4 +86,5 @@ main = do
   case args of
     [url] -> sortDli url "."
     [url, dir] -> sortDli url dir
+    _ -> fail "Wrong number of command-line arguments"
 
